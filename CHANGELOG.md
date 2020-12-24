@@ -8,6 +8,7 @@
 
 - **test:** commitlint config ([03e4c4d](https://github.com/yelingfeng/app-base-records/commit/03e4c4d)) by: **yelngfeng** (yelingfeng521@gmail.com)
 - **test:** test ls-lint ([5a7c7ba](https://github.com/yelingfeng/app-base-records/commit/5a7c7ba)) by: **yelngfeng** (yelingfeng521@gmail.com)
+- **update:** changelog config in package.json ([2977b3e](https://github.com/yelingfeng/app-base-records/commit/2977b3e)) by: **yelngfeng** (yelingfeng521@gmail.com)
 
 ### 👷‍ Build System
 
