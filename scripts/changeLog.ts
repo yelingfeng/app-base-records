@@ -5,7 +5,7 @@ import { errorConsole, successConsole } from './utils'
 
 export const runChangeLog = async () => {
   try {
-    let cmd = `conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0 `
+    let cmd = `conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md `
 
     await sh(cmd, {
       async: true,

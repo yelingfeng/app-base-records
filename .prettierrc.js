@@ -3,6 +3,5 @@ module.exports = {
   endOfLine: 'auto',
   printWidth: 150,
   singleQuote: true,
-  semi: false,
-  disableLanguages: ['vue']
+  semi: false
 }

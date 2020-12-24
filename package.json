@@ -66,6 +66,7 @@
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.1.2",
+    "esno": "^0.3.0",
     "husky": "^4.3.6",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
@@ -88,5 +89,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "changelog": {
+    "bugsUrl": "https://github.com/yelingfeng/app-base-records/issues/",
+    "emojis": true,
+    "authorName": true,
+    "authorEmail": true
   }
 }
