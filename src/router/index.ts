@@ -7,7 +7,7 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { routes } from './router.config'
+import { routes } from './config'
 import { mountRouter } from './routerPermissions'
 
 Vue.use(VueRouter)
