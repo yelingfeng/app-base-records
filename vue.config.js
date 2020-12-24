@@ -10,7 +10,7 @@ const IS_PROD = ['production', 'prod', 'test'].includes(process.env.NODE_ENV)
 const devServerPort = 8111 // TODO: get this variable from setting.ts
 const name = 'netSecur' // TODO: get this variable from setting.ts
 
-const publicPath = IS_PROD ? '/netSecur/' : '/'
+const publicPath = IS_PROD ? '/' : '/'
 // const mockServer = 'http://172.17.20.226:8010/mockjsdata/1'
 const mockServer = 'http://172.17.20.226:8080/'
 
@@ -52,26 +52,12 @@ module.exports = {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     config.set('name', name)
-    // config.module
-    //   .rule(/\.(js|ts|vue)$/)
-    //   .use('eslint-loader')
-    //   .loader('eslint-loader')
-    //   .options({
-    //     formatter: require('eslint-friendly-formatter')
-    //   })
 
     // https://webpack.js.org/configuration/devtool/#development
     config.when(!IS_PROD, config => config.devtool('cheap-eval-source-map'))
 
     // remove vue-cli-service's progress output
     config.plugins.delete('progress')
-    // replace with another progress output plugin to solve the this bug:
-    // https://github.com/vuejs/vue-cli/issues/4557
-    // config.plugin('simple-progress-webpack-plugin').use(require.resolve('simple-progress-webpack-plugin'), [
-    //   {
-    //     format: 'compact',
-    //   },
-    // ])
 
     config.when(!IS_PROD, config => {
       config.optimization.splitChunks({

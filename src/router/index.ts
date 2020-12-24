@@ -20,7 +20,7 @@ Vue.use(VueRouter)
 routes.push({
   path: '/ErrorInfo',
   name: 'ErrorInfo',
-  component: () => import('@/views/Error/error404.vue')
+  component: () => import('@/views/Error/404.vue')
 })
 
 const router = new VueRouter({
