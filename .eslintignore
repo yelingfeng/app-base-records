@@ -17,6 +17,7 @@ lib
 /bin
 /build
 /config
+/scripts/
 vue.config.js
 commit-lint.js
 postcss.config.js

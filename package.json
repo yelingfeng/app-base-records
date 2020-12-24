@@ -5,6 +5,7 @@
   "scripts": {
     "bootstrap": "yarn install",
     "build": "vue-cli-service build",
+    "log": "esno ./scripts/changelog.ts",
     "dev": "vue-cli-service serve",
     "commit": "git-cz",
     "ls-lint": "npx ls-lint",
@@ -55,8 +56,12 @@
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "chalk": "^4.1.0",
     "commitizen": "^4.2.2",
+    "conventional-changelog-cli": "^2.1.1",
+    "conventional-changelog-custom-config": "^0.3.1",
     "cz-conventional-changelog": "^3.3.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.7.2",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-plugin-prettier": "^3.1.1",
@@ -68,6 +73,7 @@
     "mockjs": "^1.1.0",
     "prettier": "^1.19.1",
     "simple-progress-webpack-plugin": "^1.1.2",
+    "tasksfile": "^5.1.1",
     "typescript": "~3.7.5",
     "vue-template-compiler": "^2.6.11",
     "yarn": "^1.22.4"
