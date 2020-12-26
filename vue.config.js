@@ -10,7 +10,7 @@ const IS_PROD = ['production', 'prod', 'test'].includes(process.env.NODE_ENV)
 const devServerPort = 8111 // TODO: get this variable from setting.ts
 const name = 'netSecur' // TODO: get this variable from setting.ts
 
-const publicPath = IS_PROD ? '/netSecur/' : '/'
+const publicPath = IS_PROD ? '/' : '/'
 // const mockServer = 'http://172.17.20.226:8010/mockjsdata/1'
 const mockServer = 'http://172.17.20.226:8080/'
 
@@ -58,13 +58,6 @@ module.exports = {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     config.set('name', name)
-    // config.module
-    //   .rule(/\.(js|ts|vue)$/)
-    //   .use('eslint-loader')
-    //   .loader('eslint-loader')
-    //   .options({
-    //     formatter: require('eslint-friendly-formatter')
-    //   })
 
     // https://webpack.js.org/configuration/devtool/#development
     config.when(!IS_PROD, config => config.devtool('cheap-eval-source-map'))
@@ -80,7 +73,7 @@ module.exports = {
     ])
 
     // remove vue-cli-service's progress output
-    config.plugins.delete('prefetch')
+    config.plugins.delete('progress')
 
     config.when(!IS_PROD, config => {
       config.optimization.splitChunks({

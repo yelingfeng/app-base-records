@@ -15,7 +15,6 @@ Vue.use(VueRouter)
   Note: sub-menu only appear when children.length>=1
   Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
 */
-
 /**
   ConstantRoutes
   a base page that does not have permission requirements
@@ -130,11 +129,6 @@ export const asyncRoutes: RouteConfig[] = [
       title: 'externalLink',
       icon: 'link'
     }
-  },
-  {
-    path: '*',
-    redirect: '/404',
-    meta: { hidden: true }
   }
 ]
 
