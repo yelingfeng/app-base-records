@@ -48,6 +48,12 @@ module.exports = {
       }
     }
   },
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'scss',
+      patterns: [path.resolve(__dirname, 'src/styles/_variables.scss'), path.resolve(__dirname, 'src/styles/_mixins.scss')]
+    }
+  },
   chainWebpack(config) {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
@@ -63,15 +69,18 @@ module.exports = {
     // https://webpack.js.org/configuration/devtool/#development
     config.when(!IS_PROD, config => config.devtool('cheap-eval-source-map'))
 
+    config.plugin('preload').tap(() => [
+      {
+        rel: 'preload',
+        // to ignore runtime.js
+        // https://github.com/vuejs/vue-cli/blob/dev/packages/@vue/cli-service/lib/config/app.js#L171
+        fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
+        include: 'initial'
+      }
+    ])
+
     // remove vue-cli-service's progress output
-    config.plugins.delete('progress')
-    // replace with another progress output plugin to solve the this bug:
-    // https://github.com/vuejs/vue-cli/issues/4557
-    // config.plugin('simple-progress-webpack-plugin').use(require.resolve('simple-progress-webpack-plugin'), [
-    //   {
-    //     format: 'compact',
-    //   },
-    // ])
+    config.plugins.delete('prefetch')
 
     config.when(!IS_PROD, config => {
       config.optimization.splitChunks({

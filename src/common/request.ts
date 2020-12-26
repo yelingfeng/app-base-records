@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { getSession, getCookies, removeCookies, removeSession } from '@/utils/cookiesUtil'
 import { Message, MessageBox } from 'element-ui'
 import router from '@/router'
-import store from '@/store/store'
+import store from '@/store'
 import qs from 'qs'
 
 const instance: AxiosInstance = axios.create({

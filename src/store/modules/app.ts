@@ -1,96 +1,92 @@
-/*
- * @Author: zhangjipei
- * @Date: 2020-03-19 11:21:33
- * @LastEditors: fuping
- * @LastEditTime: 2020-07-20 16:01:19
- * @Description:
- */
-import { Module, MutationTree, ActionTree, ActionContext, GetterTree } from 'vuex'
-import { RootState } from './../store'
-import { http } from '@/common/request'
+import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
+import { getSidebarStatus, getSize, setSidebarStatus, setLanguage, setSize } from '@/utils/cookies'
+import store from '@/store'
 
-export interface AppState {
-  isCollapse: boolean
-  name?: string
-  menuList: any[]
-}
-interface IResponse<T = any> {
-  code: number
-  data: T
-  message: string
+export enum DeviceType {
+  Mobile,
+  Desktop
 }
 
-const appState: AppState = {
-  isCollapse: false,
-  name: '',
-  menuList: []
+export interface IAppState {
+  device: DeviceType
+  sidebar: {
+    opened: boolean
+    withoutAnimation: boolean
+  }
+  language: string
+  size: string
 }
 
-const mutations: MutationTree<AppState> = {
-  collapse(state: AppState, appinfo: any) {
-    // state.isCollapse = !state.isCollapse
-    state.isCollapse = appinfo.isCollapse
-  },
-  appName(state: AppState, appinfo: any) {
-    state.name = appinfo.name
-  },
-  menuList(state: AppState, data: any) {
-    state.menuList = data
+@Module({ dynamic: true, store, name: 'app' })
+class App extends VuexModule implements IAppState {
+  public sidebar = {
+    opened: getSidebarStatus() !== 'closed',
+    withoutAnimation: false
+  }
+
+  public device = DeviceType.Desktop
+  public language = ''
+  public size = getSize() || 'medium'
+
+  @Mutation
+  private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
+    this.sidebar.opened = !this.sidebar.opened
+    this.sidebar.withoutAnimation = withoutAnimation
+    if (this.sidebar.opened) {
+      setSidebarStatus('opened')
+    } else {
+      setSidebarStatus('closed')
+    }
+  }
+
+  @Mutation
+  private CLOSE_SIDEBAR(withoutAnimation: boolean) {
+    this.sidebar.opened = false
+    this.sidebar.withoutAnimation = withoutAnimation
+    setSidebarStatus('closed')
+  }
+
+  @Mutation
+  private TOGGLE_DEVICE(device: DeviceType) {
+    this.device = device
+  }
+
+  @Mutation
+  private SET_LANGUAGE(language: string) {
+    this.language = language
+    setLanguage(this.language)
+  }
+
+  @Mutation
+  private SET_SIZE(size: string) {
+    this.size = size
+    setSize(this.size)
+  }
+
+  @Action
+  public ToggleSideBar(withoutAnimation: boolean) {
+    this.TOGGLE_SIDEBAR(withoutAnimation)
+  }
+
+  @Action
+  public CloseSideBar(withoutAnimation: boolean) {
+    this.CLOSE_SIDEBAR(withoutAnimation)
+  }
+
+  @Action
+  public ToggleDevice(device: DeviceType) {
+    this.TOGGLE_DEVICE(device)
+  }
+
+  @Action
+  public SetLanguage(language: string) {
+    this.SET_LANGUAGE(language)
+  }
+
+  @Action
+  public SetSize(size: string) {
+    this.SET_SIZE(size)
   }
 }
 
-const actions: ActionTree<AppState, RootState> = {
-  /**
-   * 测试 设置App Name
-   * @param context
-   * @param param
-   */
-  setAppNameAction(context: ActionContext<AppState, RootState>, param: any) {
-    context.commit('appName', param)
-  },
-  /**
-   * 测试 设置isCollapse
-   * @param context
-   * @param param
-   */
-  setCollapseAction(context: ActionContext<AppState, RootState>, param: any) {
-    context.commit('collapse', param)
-  },
-  /**
-   * 测试 设置menuList
-   * @param context
-   * @param param
-   */
-  setMenuListAction(context: ActionContext<AppState, RootState>, param: any) {
-    http.post<IResponse>(`/Menu/newNenuList`, param).then((res: any) => {
-      const listData: any = []
-      res.data.forEach((i: any) => {
-        listData.push(i)
-      })
-      context.commit('menuList', listData)
-      return listData
-    })
-  }
-}
-
-const getters: GetterTree<AppState, RootState> = {
-  getName(state: AppState) {
-    return state.name
-  },
-  getCollapse(state: AppState) {
-    return state.isCollapse
-  },
-  getMenuList(state: AppState) {
-    return state.menuList
-  }
-}
-
-const app: Module<AppState, RootState> = {
-  namespaced: true,
-  state: appState,
-  getters,
-  actions,
-  mutations
-}
-
-export default app
+export const AppModule = getModule(App)

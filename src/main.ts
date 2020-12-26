@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store/store'
+import store from './store'
 import 'normalize.css'
 import ElementUI from 'element-ui'
 import VuePandora from 'vue-pandora'
 import 'vue-pandora/lib/vuepandora.css'
 import 'element-ui/lib/theme-chalk/index.css'
-import './common/storage'
-import '@/styles/index.less'
+// import './common/storage'
+// import '@/styles/index.less'
 
-import BaseCharts from '@/components/Charts/BaseCharts.vue'
-Vue.component('BaseCharts', BaseCharts)
+import '@/styles/element-variables.scss'
+import '@/styles/index.scss'
+
+// import BaseCharts from '@/components/Charts/BaseCharts.vue'
+// Vue.component('BaseCharts', BaseCharts)
 
 // import { loadMapsResouces } from '@/components/Charts/map/load/index.ts'
 // loadMapsResouces('world')
